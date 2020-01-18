@@ -16,10 +16,10 @@ def grab_all_listing_ids(SEARCH_ID, MAX_PAGES=-1):
         listing_ids.append(listing['data-listing-id'])
 
     if MAX_PAGES > 0:
-        PAGE_UPPER = MAX_PAGES
+        PAGE_UPPER = min(100, MAX_PAGES)
     else:
         RESULTS = int(re.search('[0-9]+', parsed_rsp.find('p', {'id': 'results_header'}).contents[3].text).group(0))
-        PAGE_UPPER = int(np.ceil(RESULTS / 10) * 10 + 1)
+        PAGE_UPPER = min(100, int(np.ceil(RESULTS / 10) * 10 + 1))
 
     print(f'looping through {PAGE_UPPER} pages')
     for PAGE in range(1, PAGE_UPPER):
