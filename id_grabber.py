@@ -5,6 +5,7 @@ import re
 from datetime import datetime
 import json
 
+
 def grab_all_listing_ids(SEARCH_ID, MAX_PAGES=-1):
     listing_ids = []
 
@@ -25,13 +26,13 @@ def grab_all_listing_ids(SEARCH_ID, MAX_PAGES=-1):
             f'https://www.spareroom.co.uk/flatshare/?offset={PAGE * 10}&search_id={SEARCH_ID}&sort_by=age')
         parsed_rsp = BeautifulSoup(rsp.content, 'html.parser')
 
-    for listing in parsed_rsp.find_all("li", class_="listing-result"):
-        listing_ids.append(listing['data-listing-id'])
+        for listing in parsed_rsp.find_all("li", class_="listing-result"):
+            listing_ids.append(listing['data-listing-id'])
 
-    return (listing_ids)
+    return listing_ids
 
 
-class ListingScrpae():
+class ListingScrape:
 
     def __init__(self, listing_id):
         self.id = listing_id
@@ -111,7 +112,7 @@ def __main__():
 
         data[z] = {}
         for id in ids:
-            scrape = ListingScrpae(id)
+            scrape = ListingScrape(id)
             scrape.grab_key_features()
             scrape.grab_room_data()
             scrape.grab_geo_data()
