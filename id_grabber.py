@@ -21,7 +21,10 @@ def grab_all_listing_ids(SEARCH_ID, MAX_PAGES=-1):
         RESULTS = int(re.search('[0-9]+', parsed_rsp.find('p', {'id': 'results_header'}).contents[3].text).group(0))
         PAGE_UPPER = int(np.ceil(RESULTS / 10) * 10 + 1)
 
+    print(f'looping through {MAX_PAGES} pages')
     for PAGE in range(1, PAGE_UPPER):
+        if PAGE % 10 == 0:
+            print(f'Starting id scrape of page {PAGE}')
         rsp = requests.get(
             f'https://www.spareroom.co.uk/flatshare/?offset={PAGE * 10}&search_id={SEARCH_ID}&sort_by=age')
         parsed_rsp = BeautifulSoup(rsp.content, 'html.parser')
