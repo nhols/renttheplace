@@ -5,18 +5,20 @@ import re
 from datetime import datetime
 import json
 
+FILE_OUT = 'listing_data_feb.json'
 
-def grab_all_listing_ids(SEARCH_ID, MAX_PAGES=-1):
+
+def grab_all_listing_ids(search_id, max_pages=-1):
     listing_ids = []
 
-    rsp = requests.get(f'https://www.spareroom.co.uk/flatshare/?search_id={SEARCH_ID}')
+    rsp = requests.get(f'https://www.spareroom.co.uk/flatshare/?search_id={search_id}')
     parsed_rsp = BeautifulSoup(rsp.content, 'html.parser')
 
     for listing in parsed_rsp.find_all("li", class_="listing-result"):
         listing_ids.append(listing['data-listing-id'])
 
-    if MAX_PAGES > 0:
-        PAGE_UPPER = min(100, MAX_PAGES)
+    if max_pages > 0:
+        PAGE_UPPER = min(100, max_pages)
     else:
         RESULTS = int(re.search('[0-9]+', parsed_rsp.find('p', {'id': 'results_header'}).contents[3].text).group(0))
         PAGE_UPPER = min(100, int(np.ceil(RESULTS / 10) * 10 + 1))
@@ -26,7 +28,7 @@ def grab_all_listing_ids(SEARCH_ID, MAX_PAGES=-1):
         if PAGE % 10 == 0:
             print(f'Starting id scrape of page {PAGE}')
         rsp = requests.get(
-            f'https://www.spareroom.co.uk/flatshare/?offset={PAGE * 10}&search_id={SEARCH_ID}&sort_by=age')
+            f'https://www.spareroom.co.uk/flatshare/?offset={PAGE * 10}&search_id={search_id}&sort_by=age')
         parsed_rsp = BeautifulSoup(rsp.content, 'html.parser')
 
         for listing in parsed_rsp.find_all("li", class_="listing-result"):
@@ -123,10 +125,10 @@ def __main__():
             scrape.grab_desc()
             data[z][id] = scrape.data
 
-    return (data)
+    return data
 
 
 if __name__ == '__main__':
     data = __main__()
-    with open('listing_data.json', 'w') as fp:
+    with open(FILE_OUT, 'w') as fp:
         json.dump(data, fp)
