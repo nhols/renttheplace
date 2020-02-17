@@ -1,6 +1,6 @@
 # renttheplace
 
-inspired by ![tweet image]('https://user-images.githubusercontent.com/54774848/74690133-c00a3600-51d5-11ea-871e-6d225e90bf06.png')
+inspired by ![tweet image](https://user-images.githubusercontent.com/54774848/74690133-c00a3600-51d5-11ea-871e-6d225e90bf06.png)
 
 Aim of this project is to collect spareroom listings data for properties located near London tube stations
 
