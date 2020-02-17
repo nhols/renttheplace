@@ -107,8 +107,12 @@ class ListingScrape:
 def __main__():
     data = {}
 
-    search_zones = {'ZONE1': '920364979', 'ZONE2': '920365348', 'ZONE3': '920365945', 'ZONE4': '920366158',
-                    'ZONE5': '920366257', 'ZONE6': '920366374'}
+    # looks like these change overtime :(
+    # update by visiting https://www.spareroom.co.uk/flatshare/
+    # Search Zone 1 ... Zone 6 in "Where?" search bar
+    # Grab numeric search_id in URL of each tube zone
+    search_zones = {'ZONE1': '936018085', 'ZONE2': '936018190', 'ZONE3': '936018286', 'ZONE4': '936018370',
+                    'ZONE5': '936018490', 'ZONE6': '936018580'}
 
     for z in search_zones.keys():
         print(f'grabbing ids for tube zone {z}\n{datetime.now()}')
