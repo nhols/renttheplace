@@ -11,3 +11,5 @@ id_grabber.py grabs data on the first 1000 properties listed near each London tu
 transform_data.py contains some functions used to transform the listings scrape data into a useful format
 
 spareroom_visulisation.ipynb showcases/generates some example plots (inline notebook mapbox plots to come, attached as .html files for now) 
+
+![map image](https://user-images.githubusercontent.com/54774848/74690454-188e0300-51d7-11ea-943a-b2388bb99cf6.png)
